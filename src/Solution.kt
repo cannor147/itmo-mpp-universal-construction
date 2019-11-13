@@ -5,13 +5,13 @@ class Solution : AtomicCounter {
     }
 
     override fun getAndAdd(x: Int): Int {
+        var old : Int
         while (true) {
-            val old = last.get().value
-            val res = old + x
-            val node = Node(res)
+            old = last.get().value
+            val node = Node(old + x)
             last.set(last.get().next.decide(node))
             if (last.get() == node) {
-                return old;
+                return old
             }
         }
     }
