@@ -10,10 +10,10 @@ class Solution : AtomicCounter {
         while (true) {
             val old = last.get().value
             val res = old + x
-            val node = Node(old)
+            val node = Node(res)
             last.set(last.get().next.decide(node))
             if (last.get().id == node.id) {
-                return res;
+                return old;
             }
         }
     }
