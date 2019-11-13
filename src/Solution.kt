@@ -1,5 +1,3 @@
-import java.util.concurrent.ThreadLocalRandom
-
 class Solution : AtomicCounter {
     private val root = Node(0)
     private val last : ThreadLocal<Node> = ThreadLocal.withInitial {
@@ -12,14 +10,13 @@ class Solution : AtomicCounter {
             val res = old + x
             val node = Node(res)
             last.set(last.get().next.decide(node))
-            if (last.get().id == node.id) {
+            if (last.get() == node) {
                 return old;
             }
         }
     }
 
     private class Node(val value: Int) {
-        val id = ThreadLocalRandom.current().nextInt()
         val next = Consensus<Node>()
     }
 }
